@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { ApolloClient } from "apollo-client";
 
 import { withApollo } from "react-apollo";
@@ -8,8 +8,6 @@ import { settings } from "../../settings";
 import { IssueOnList, IssueStatus } from "../../types";
 import { IssueStatusSelector } from "../../components/IssueStatusSelector";
 import { IssueItem } from "../../components/IssueItem";
-
-const { useState, useEffect } = React;
 
 function BaseIssuesList({ client }: { client: ApolloClient<any> }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -21,6 +19,7 @@ function BaseIssuesList({ client }: { client: ApolloClient<any> }) {
 
   const searchIssues = getIssueSearcher(client, settings);
   const onSearch = async () => {
+    console.log(`onsearch ${issueStatus} ${searchTerm}`);
     const issues = await searchIssues(issueStatus, searchTerm);
     setAppliedSearchTerm(searchTerm);
     setIssuesList(issues);

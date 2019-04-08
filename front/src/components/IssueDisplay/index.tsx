@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { IssueDisplayProps } from "../../types";
 import { CreationData } from "../CreationData";
 import { CommentDisplay } from "../CommentDisplay";

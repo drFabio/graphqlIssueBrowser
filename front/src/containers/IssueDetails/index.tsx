@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Query } from "react-apollo";
 import { withApollo } from "react-apollo";
 import { getCommentsSearcher } from "../../utils/getCommentsSearcher";
@@ -13,8 +13,6 @@ import {
   IssueDetailsResponse,
   CommentOnIssue
 } from "../../types";
-
-const { useState, useEffect } = React;
 
 function BaseIssueDetails({ match, client }: IssueDetailsProps) {
   const [issueComments, setIssueComments] = useState<CommentOnIssue[]>([]);

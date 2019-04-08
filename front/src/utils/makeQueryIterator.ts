@@ -1,17 +1,20 @@
-type cursorType = string | null;
-interface WithCursor {
+export type cursorType = string | null;
+export interface WithCursor {
   cursor?: cursorType;
 }
-type dataSearcher<T, SearchType> = (
+export type dataSearcher<T, SearchType> = (
   params: SearchType
 ) => T[] | Promise<[T[], cursorType]>;
-type responseFilter = (item: any) => boolean;
-type completitionChecker = (
+export type responseFilter = (item: any) => boolean;
+export type completitionChecker = (
   filteredData: any[],
   currentData?: any[]
 ) => boolean;
 
-interface makeQueryIteratorParams<ReturnType, SearchType extends WithCursor> {
+export interface makeQueryIteratorParams<
+  ReturnType,
+  SearchType extends WithCursor
+> {
   searchParams: SearchType;
   executeSearch: dataSearcher<ReturnType, SearchType>;
   filterData?: responseFilter;
@@ -34,7 +37,7 @@ export function* makeQueryIterator<ItemType, SearchType extends WithCursor>({
   if (filterData) {
     response.unshift(...items.filter(filterData));
   } else {
-    response = items;
+    response = [...items];
   }
   const mustContinue = () => {
     let ret = items.length > 0;
@@ -46,10 +49,12 @@ export function* makeQueryIterator<ItemType, SearchType extends WithCursor>({
   while (mustContinue()) {
     [items, cursor] = yield executeSearch({ ...searchParams, cursor });
     let dataToAdd = items;
-    if (filterData) {
-      dataToAdd = items.filter(filterData);
+    if (dataToAdd && dataToAdd.length) {
+      if (filterData) {
+        dataToAdd = items.filter(filterData);
+      }
+      response.push(...dataToAdd);
     }
-    response.unshift(...dataToAdd);
   }
   return response;
 }
