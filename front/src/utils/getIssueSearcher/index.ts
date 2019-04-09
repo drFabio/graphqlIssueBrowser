@@ -17,7 +17,6 @@ export function getIssueSearcher(
     status = IssueStatus.Both,
     searchTerm?: string
   ): Promise<IssueOnList[]> => {
-    console.log(`Get issue searcher!`);
     const { limit } = settings;
     const filterIssue = (issue: IssueOnList) => {
       if (!searchTerm) {
@@ -33,7 +32,6 @@ export function getIssueSearcher(
       return response.length >= limit;
     };
     const searchParams = { client, settings, searchTerm, status };
-    console.log(`Search params ${JSON.stringify({ searchParams })}`);
     const iter = makeQueryIterator<IssueOnList, SearchIssuesOnRepoParams>({
       searchParams,
       executeSearch: searchIssuesOnRepo,

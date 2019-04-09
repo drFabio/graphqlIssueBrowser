@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
@@ -26,6 +27,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: path.join(APP_PATH, "index.html")
+    }),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        GITHB_TOKEN: JSON.stringify(process.env.GITHB_TOKEN)
+      }
     }),
     new ForkTsCheckerWebpackPlugin()
   ],

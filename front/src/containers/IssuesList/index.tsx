@@ -19,7 +19,6 @@ function BaseIssuesList({ client }: { client: ApolloClient<any> }) {
 
   const searchIssues = getIssueSearcher(client, settings);
   const onSearch = async () => {
-    console.log(`onsearch ${issueStatus} ${searchTerm}`);
     const issues = await searchIssues(issueStatus, searchTerm);
     setAppliedSearchTerm(searchTerm);
     setIssuesList(issues);
