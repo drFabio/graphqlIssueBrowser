@@ -12,7 +12,7 @@ export async function searchIssuesOnRepo({
   status,
   cursor
 }: SearchIssuesOnRepoParams): Promise<[IssueOnList[], string | null]> {
-  const { repositoryOwner, repositoryName, limit } = settings;
+  const { repositoryOwner, repositoryName, apiSearchLimit: limit } = settings;
   const variables: any = {
     repositoryName,
     repositoryOwner,

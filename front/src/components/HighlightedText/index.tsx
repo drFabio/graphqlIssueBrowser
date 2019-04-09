@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Hilightable } from "../../presententionalComponents";
+
 export function HighlightedText({
   term,
   children
@@ -15,20 +17,12 @@ export function HighlightedText({
     <span>
       {" "}
       {parts.map((part, i) => (
-        <span
+        <Hilightable
           key={i}
-          style={
-            part.toLowerCase() === term.toLowerCase()
-              ? {
-                  fontWeight: "bold",
-                  backgroundColor: "yellow",
-                  color: "black"
-                }
-              : {}
-          }
+          highlighted={part.toLowerCase() === term.toLowerCase()}
         >
           {part}
-        </span>
+        </Hilightable>
       ))}{" "}
     </span>
   );

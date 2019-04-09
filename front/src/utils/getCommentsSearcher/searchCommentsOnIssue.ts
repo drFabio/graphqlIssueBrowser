@@ -11,7 +11,7 @@ export async function searchCommentsOnIssue({
   issueNumber,
   client
 }: SearchCommentsOnIssueParams): Promise<[CommentOnIssue[], string | null]> {
-  const { repositoryOwner, repositoryName, limit } = settings;
+  const { repositoryOwner, repositoryName, apiSearchLimit: limit } = settings;
   const variables = {
     repositoryName,
     repositoryOwner,

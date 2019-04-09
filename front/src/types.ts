@@ -15,6 +15,7 @@ export interface WithCursor {
 export interface Settings {
   graphqlUrl: string;
   limit: number;
+  apiSearchLimit: number;
   token: string;
   repositoryOwner: string;
   repositoryName: string;

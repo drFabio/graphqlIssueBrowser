@@ -7,6 +7,7 @@ import { issueDetailsQuery as query } from "../../queries/issueDetailsQuery";
 import { settings } from "../../settings";
 
 import { IssueDisplay } from "../../components/IssueDisplay";
+import { Loading } from "../../components/Loading";
 
 import {
   IssueDetailsProps,
@@ -34,7 +35,7 @@ function BaseIssueDetails({ match, client }: IssueDetailsProps) {
     <Query {...{ variables, query }}>
       {({ loading, data, error }: IssueDetailsResponse) => {
         if (loading) {
-          return `loading...`;
+          return <Loading />;
         }
         if (error || !data) {
           return error || "Data not found";

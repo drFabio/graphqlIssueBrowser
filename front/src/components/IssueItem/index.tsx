@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "../../presententionalComponents";
 import { IssueItemProps } from "../../types";
 import { HighlightedText as HT } from "../HighlightedText";
 
