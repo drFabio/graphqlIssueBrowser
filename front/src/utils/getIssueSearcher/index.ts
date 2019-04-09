@@ -6,6 +6,7 @@ import {
 } from "../../types";
 import { ApolloClient } from "apollo-client";
 import { makeQueryIterator } from "../makeQueryIterator";
+import { runIterationUtilCompletion } from "../runIterationUtilCompletion";
 import { searchIssuesOnRepo } from "./searchIssuesOnRepo";
 
 export function getIssueSearcher(
@@ -39,14 +40,7 @@ export function getIssueSearcher(
       filterData: filterIssue,
       isDone: stopIssueQuerying
     });
-    let { done, value } = iter.next();
-    let resp = await value;
-    while (!done) {
-      ({ done, value } = iter.next(resp));
-      resp = await value;
-    }
-    const response = resp as IssueOnList[];
-    response.reverse();
+    const response = await runIterationUtilCompletion<IssueOnList>(iter);
     return response.slice(0, limit);
   };
 }

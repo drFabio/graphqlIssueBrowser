@@ -1,7 +1,5 @@
-export type cursorType = string | null;
-export interface WithCursor {
-  cursor?: cursorType;
-}
+import { cursorType, WithCursor } from "../types";
+
 export type dataSearcher<T, SearchType> = (
   params: SearchType
 ) => T[] | Promise<[T[], cursorType]>;

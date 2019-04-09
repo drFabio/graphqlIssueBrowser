@@ -7,6 +7,11 @@ export enum IssueStatus {
   Closed = "CLOSED",
   Both = "BOTH"
 }
+export type cursorType = string | null;
+export interface WithCursor {
+  cursor?: cursorType;
+}
+
 export interface Settings {
   graphqlUrl: string;
   limit: number;
@@ -14,7 +19,6 @@ export interface Settings {
   repositoryOwner: string;
   repositoryName: string;
 }
-
 export interface IssueOnList {
   title: string;
   body: string;

@@ -5,6 +5,7 @@ import {
 } from "../../types";
 import { ApolloClient } from "apollo-client";
 import { makeQueryIterator } from "../makeQueryIterator";
+import { runIterationUtilCompletion } from "../runIterationUtilCompletion";
 import { searchCommentsOnIssue } from "./searchCommentsOnIssue";
 
 export function getCommentsSearcher(
@@ -19,12 +20,6 @@ export function getCommentsSearcher(
         executeSearch: searchCommentsOnIssue
       }
     );
-    let { done, value } = iter.next();
-    let resp = await value;
-    while (!done) {
-      ({ done, value } = iter.next(resp));
-      resp = await value;
-    }
-    return resp as CommentOnIssue[];
+    return runIterationUtilCompletion<CommentOnIssue>(iter);
   };
 }
