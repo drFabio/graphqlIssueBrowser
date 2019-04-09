@@ -8,6 +8,7 @@ import {
   WidthProps,
   SpaceProps,
   FontSizeProps,
+  BorderProps,
   ColorProps
 } from "styled-system";
 import { Link as BaseLink } from "react-router-dom";
@@ -23,12 +24,13 @@ export const theme = {
     secondary: "#009FE3",
     highlight: "#FFFF00",
     error: "#ff0000",
-    black: "#000"
+    black: "#000",
+    default: "inherit"
   },
   borderWidths: [1, 2, "0.5em", "1em", "1.5em"]
 };
-
-type BoxProps = WidthProps & SpaceProps & FontSizeProps & ColorProps;
+type SpaceColorProps = SpaceProps & ColorProps;
+type BoxProps = WidthProps & FontSizeProps & SpaceColorProps;
 
 export const Box = styled.div<BoxProps>`
   ${space}
@@ -42,15 +44,16 @@ Pick<Pick<Pick<
 DetailedHTMLProps<
 InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 */
-export const Input = styled.input.attrs({
-  fontSize: 2,
-  p: 1
-})<BoxProps>`
+export const Input = styled.input<BoxProps>`
   ${space}
   ${width}
   ${fontSize}
   ${color}
 `;
+Input.defaultProps = {
+  fontSize: 2,
+  p: 1
+};
 export const BaseButton: StyledComponent<any, any> = styled.button<BoxProps>`
   ${space}
   ${width}
@@ -64,15 +67,7 @@ export const BaseButton: StyledComponent<any, any> = styled.button<BoxProps>`
   }
 `;
 
-export const Button = styled(BaseButton).attrs({
-  borderWidth: 1,
-  pl: 1,
-  pr: 1,
-  color: "white",
-  borderStyle: "solid",
-  borderColor: "primary",
-  bg: "primary"
-})`
+export const Button = styled(BaseButton)<BorderProps>`
   ${borders}
   &:hover:enabled {
     color: ${({ theme: { colors } }) => colors.white};
@@ -83,20 +78,18 @@ export const Button = styled(BaseButton).attrs({
     border-color: ${({ theme: { colors } }) => colors.muted};
   }
 `;
-
+Button.defaultProps = {
+  borderWidth: 1,
+  pl: 1,
+  pr: 1,
+  color: "white",
+  borderStyle: "solid",
+  borderColor: "primary",
+  bg: "primary"
+};
 export const Menu = styled.nav``;
-export const Link = styled(BaseLink)`
-  color: inherit;
-  text-decoration: underline;
-  & + & {
-    margin-left: ${({ theme: { space } }) => space[1]};
-  }
-`;
 
-export const MainContainer = styled.main.attrs({
-  fontSize: 3,
-  bg: "white"
-})`
+export const MainContainer = styled.main<ColorProps & FontSizeProps>`
   ${color}
   ${fontSize}
     font-family: verdana, sans-serif;
@@ -107,34 +100,26 @@ export const MainContainer = styled.main.attrs({
     "header header header "
     "left main right"
     "footer footer footer";
-  grid-template-rows: 10vh 1fr 5vh;
+  grid-template-rows: auto 1fr 5vh;
   grid-template-columns: 1fr 8fr 1fr;
 `;
-export const InnerContainer = styled.div.attrs({
-  pt: 3,
-  pb: 3,
-  pl: 5,
-  pr: 5,
-  color: "text",
-  borderColor: "secondary"
-})`
+MainContainer.defaultProps = {
+  fontSize: 3,
+  bg: "white"
+};
+
+export const InnerContainer = styled.div<SpaceColorProps>`
   ${space}
   ${color}
     grid-area: main;
 `;
-export const Header = styled.header.attrs({
-  pt: 1,
-  pb: 1,
-  pl: 4,
-  pr: 4,
-  bg: "secondary",
-  color: "white",
-  fontSize: 5
-})`
-  ${space}
-  ${color}
-    grid-area: header;
-`;
+InnerContainer.defaultProps = {
+  pt: 3,
+  pb: 3,
+  pl: 5,
+  pr: 5,
+  color: "text"
+};
 
 const getHilightProps = (props: { theme: any; highlighted: boolean }) => {
   if (props.highlighted) {
@@ -149,7 +134,21 @@ const getHilightProps = (props: { theme: any; highlighted: boolean }) => {
 export const Hilightable = styled.span`
   ${getHilightProps}
 `;
-type TextProps = SpaceProps & FontSizeProps & ColorProps;
+type TextProps = SpaceColorProps & FontSizeProps;
+
+export const Header = styled.header<SpaceColorProps>`
+  ${space}
+  ${color}
+    grid-area: header;
+`;
+Header.defaultProps = {
+  pt: 1,
+  pb: 1,
+  pl: 4,
+  pr: 4,
+  bg: "secondary",
+  color: "white"
+};
 
 export const Text = styled.span<TextProps>`
   ${space}
@@ -162,15 +161,26 @@ export const TextLine = styled.p<TextProps>`
   ${color}
 `;
 
-export const TextHeader = styled.h3.attrs({
+export const TextHeader = styled.h3<TextProps>`
+${space}
+${fontSize}
+${color}
+`;
+TextHeader.defaultProps = {
   fontSize: 4,
   mt: 3,
   pt: 2,
   pb: 2,
   mb: 3,
   color: "primary"
-})<TextProps>`
-${space}
-${fontSize}
-${color}
+};
+
+export const Link = styled(BaseLink)<ColorProps & FontSizeProps>`
+  ${color}
+  ${fontSize}
+  text-decoration: underline;
+  & + & {
+    margin-left: ${({ theme: { space } }) => space[1]};
+  }
 `;
+Link.defaultProps = { color: "default" };

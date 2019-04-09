@@ -13,8 +13,11 @@ export function IssueItem({
   return (
     <div>
       <h3>
-        <Link to={`/issue/${number}`}> {number} </Link> -{" "}
-        <HT term={searchTerm}>{title}</HT> {closed ? "Closed" : " Open"}
+        <Link to={`/issue/${number}`} color="secondary">
+          {" "}
+          {number}{" "}
+        </Link>{" "}
+        - <HT term={searchTerm}>{title}</HT> {closed ? "Closed" : " Open"}
       </h3>
       <pre>
         <HT term={searchTerm}>{body}</HT>
