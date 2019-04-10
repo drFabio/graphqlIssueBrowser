@@ -1,3 +1,5 @@
+import { IssueStatus } from "../types";
+
 import styled, { StyledComponent } from "styled-components";
 import {
   space,
@@ -25,7 +27,9 @@ export const theme = {
     highlight: "#FFFF00",
     error: "#ff0000",
     black: "#000",
-    default: "inherit"
+    default: "inherit",
+    [IssueStatus.Closed]: "#cb2431",
+    [IssueStatus.Open]: "#2cbe4e"
   },
   borderWidths: [1, 2, "0.5em", "1em", "1.5em"]
 };
@@ -92,9 +96,10 @@ export const Menu = styled.nav``;
 export const MainContainer = styled.main<ColorProps & FontSizeProps>`
   ${color}
   ${fontSize}
-    font-family: verdana, sans-serif;
+  font-family: verdana, sans-serif;
   line-height: 1.5;
   height: 100%;
+  width: 100%
   display: grid;
   grid-template-areas:
     "header header header "
@@ -184,3 +189,23 @@ export const Link = styled(BaseLink)<ColorProps & FontSizeProps>`
   }
 `;
 Link.defaultProps = { color: "default" };
+
+export const Pre = styled.pre`
+  white-space: pre-wrap;
+  word-wrap: break-word;
+`;
+
+export const IssueItemContainer = styled(Box)`
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+`;
+
+export const StausBadge = styled(Text)`
+  font-weight: bold;
+`;
+
+StausBadge.defaultProps = {
+  color: "white",
+  p: 1
+};

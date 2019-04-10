@@ -1,27 +1,41 @@
 import React from "react";
-import { Link } from "../../presententionalComponents";
-import { IssueItemProps } from "../../types";
+import {
+  Link,
+  Pre,
+  IssueItemContainer,
+  StausBadge,
+  TextLine
+} from "../../presententionalComponents";
+import { IssueItemProps, IssueStatus } from "../../types";
 import { HighlightedText as HT } from "../HighlightedText";
+import { CreationData } from "../CreationData";
 
 export function IssueItem({
   number,
   title,
   closed,
   body,
-  searchTerm
+  searchTerm,
+  author,
+  createdAt
 }: IssueItemProps) {
   return (
-    <div>
-      <h3>
+    <IssueItemContainer>
+      <TextLine>
+        <StausBadge bg={closed ? IssueStatus.Closed : IssueStatus.Open} mr={1}>
+          {closed ? "Closed" : "Open"}
+        </StausBadge>
         <Link to={`/issue/${number}`} color="secondary">
           {" "}
           {number}{" "}
         </Link>{" "}
-        - <HT term={searchTerm}>{title}</HT> {closed ? "Closed" : " Open"}
-      </h3>
-      <pre>
+        - <HT term={searchTerm}>{title}</HT>
+      </TextLine>
+
+      <CreationData author={author} createdAt={createdAt} />
+      <Pre>
         <HT term={searchTerm}>{body}</HT>
-      </pre>
-    </div>
+      </Pre>
+    </IssueItemContainer>
   );
 }

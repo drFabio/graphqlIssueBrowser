@@ -17,6 +17,10 @@ export const listIssuesQuery = gql`
             number
             title
             body
+            author {
+              login
+            }
+            createdAt
           }
           cursor
         }

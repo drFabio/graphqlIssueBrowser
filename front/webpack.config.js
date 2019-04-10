@@ -26,12 +26,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.join(APP_PATH, "index.html")
+      template: path.join(APP_PATH, "index.html"),
+      favicon: false
     }),
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        GITHB_TOKEN: JSON.stringify(process.env.GITHB_TOKEN)
+        GITHUB_TOKEN: JSON.stringify(process.env.GITHUB_TOKEN)
       }
     }),
     new ForkTsCheckerWebpackPlugin()

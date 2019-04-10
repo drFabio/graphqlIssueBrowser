@@ -26,6 +26,10 @@ export interface IssueOnList {
   closed: boolean;
   id: string;
   number: number;
+  createdAt: string;
+  author: {
+    login: string;
+  };
 }
 
 interface Edge<T> {
@@ -49,7 +53,6 @@ export interface CommentOnIssue {
   author: {
     login: string;
   };
-  createdAt: string;
   bodyHTML: string;
 }
 export interface ComentQueryResponse {
