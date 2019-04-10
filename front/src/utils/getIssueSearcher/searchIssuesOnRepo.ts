@@ -1,23 +1,18 @@
-import {
-  IssueOnList,
-  IssueQueryResponse,
-  IssueStatus,
-  SearchIssuesOnRepoParams
-} from "../../types";
-import { listIssuesQuery } from "../../queries/listIssuesQuery";
+import { IssueOnList, IssueQueryResponse, IssueStatus, SearchIssuesOnRepoParams } from '../../types';
+import { listIssuesQuery } from '../../queries/listIssuesQuery';
 
 export async function searchIssuesOnRepo({
   client,
   settings,
   status,
-  cursor
+  cursor,
 }: SearchIssuesOnRepoParams): Promise<[IssueOnList[], string | null]> {
   const { repositoryOwner, repositoryName, apiSearchLimit: limit } = settings;
   const variables: any = {
     repositoryName,
     repositoryOwner,
     limit,
-    cursor
+    cursor,
   };
   if (status !== IssueStatus.Both) {
     variables.filterBy = { states: status };
@@ -25,12 +20,12 @@ export async function searchIssuesOnRepo({
   const {
     data: {
       repository: {
-        issues: { edges }
-      }
-    }
+        issues: { edges },
+      },
+    },
   }: IssueQueryResponse = await client.query({
     query: listIssuesQuery,
-    variables
+    variables,
   });
   if (!edges.length) {
     return [[], null];

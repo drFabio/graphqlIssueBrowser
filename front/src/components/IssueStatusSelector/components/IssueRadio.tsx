@@ -1,13 +1,7 @@
-import React from "react";
-import { IssueRadioProps } from "../../../types";
+import React from 'react';
+import { IssueRadioProps } from '../../../types';
 
-export function IssueRadio({
-  children,
-  status,
-  selectedValue,
-  name,
-  onChange
-}: IssueRadioProps) {
+export function IssueRadio({ children, status, selectedValue, name, onChange }: IssueRadioProps) {
   return (
     <React.Fragment>
       <input
@@ -16,7 +10,7 @@ export function IssueRadio({
         name={name}
         id={status}
         value={status}
-        onChange={() => onChange(status)}
+        onChange={(): void => onChange(status)}
       />
       <label htmlFor={status}>{children}</label>
     </React.Fragment>

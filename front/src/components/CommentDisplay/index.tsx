@@ -1,6 +1,6 @@
-import React from "react";
-import { CommentOnIssue } from "../../types";
-import { CreationData } from "../CreationData";
+import React from 'react';
+import { CommentOnIssue } from '../../types';
+import { CreationData } from '../CreationData';
 
 export function CommentDisplay({ data }: { data: CommentOnIssue }) {
   return (

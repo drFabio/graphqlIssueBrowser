@@ -1,20 +1,13 @@
-import React from "react";
-import { render } from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { ApolloProvider } from "react-apollo";
-import { ThemeProvider } from "styled-components";
-import { getClient } from "./utils/getClient";
-import { settings } from "./settings";
-import { IssuesList } from "./containers/IssuesList";
-import { IssueDetails } from "./containers/IssueDetails";
-import {
-  GlobalStyle,
-  MainContainer,
-  InnerContainer,
-  Header,
-  Link,
-  theme
-} from "./presententionalComponents";
+import React from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
+import { ThemeProvider } from 'styled-components';
+import { getClient } from './utils/getClient';
+import { settings } from './settings';
+import { IssuesList } from './containers/IssuesList';
+import { IssueDetails } from './containers/IssueDetails';
+import { GlobalStyle, MainContainer, InnerContainer, Header, Link, theme } from './presententionalComponents';
 
 getClient(settings).then(client => {
   function App() {
@@ -33,11 +26,7 @@ getClient(settings).then(client => {
                 </Header>
                 <InnerContainer>
                   <Route path="/" exact component={IssuesList} />
-                  <Route
-                    path="/issue/:issueNumber"
-                    exact
-                    component={IssueDetails}
-                  />
+                  <Route path="/issue/:issueNumber" exact component={IssueDetails} />
                 </InnerContainer>
               </MainContainer>
             </Router>
@@ -47,6 +36,6 @@ getClient(settings).then(client => {
     );
   }
 
-  const rootElement = document.getElementById("root");
+  const rootElement = document.getElementById('root');
   render(<App />, rootElement);
 });

@@ -1,11 +1,11 @@
-import { ApolloClient } from "apollo-client";
-import { QueryProps, QueryResult } from "react-apollo";
-import { match } from "react-router-dom";
+import { ApolloClient } from 'apollo-client';
+import { QueryProps, QueryResult } from 'react-apollo';
+import { match } from 'react-router-dom';
 
 export enum IssueStatus {
-  Open = "OPEN",
-  Closed = "CLOSED",
-  Both = "BOTH"
+  Open = 'OPEN',
+  Closed = 'CLOSED',
+  Both = 'BOTH',
 }
 export type cursorType = string | null;
 export interface WithCursor {
@@ -53,6 +53,7 @@ export interface CommentOnIssue {
   author: {
     login: string;
   };
+  createdAt: string;
   bodyHTML: string;
 }
 export interface ComentQueryResponse {
@@ -66,29 +67,27 @@ export interface ComentQueryResponse {
     };
   };
 }
-type IssueDetailsData = {
+interface IssueDetailsData {
   repository: {
     issue: IssueInfoOnResponse;
   };
-};
-type IssueDetailsVariables = {
+}
+interface IssueDetailsVariables {
   repositoryOwner: string;
   repositoryName: string;
   number: number;
-};
-export interface IssueDetailsResponse
-  extends QueryResult<IssueDetailsData, IssueDetailsVariables> {}
+}
+export type IssueDetailsResponse = QueryResult<IssueDetailsData, IssueDetailsVariables>;
 
-type IssueSearchData = {
+interface IssueSearchData {
   searchTerm: {
     value: string;
   };
   searchStatus: {
     value: IssueStatus;
   };
-};
-export interface IssueListSearchDataResponse
-  extends QueryResult<IssueSearchData, IssueDetailsVariables> {}
+}
+export type IssueListSearchDataResponse = QueryResult<IssueSearchData, IssueDetailsVariables>;
 
 export interface IssueInfoOnResponse {
   title: string;
@@ -106,9 +105,9 @@ export interface SearchIssueParams {
   status: IssueStatus;
 }
 export interface SearchIssuesOnRepoParams {
-  settings: SearchIssueParams["settings"];
-  client: SearchIssueParams["client"];
-  status: SearchIssueParams["status"];
+  settings: SearchIssueParams['settings'];
+  client: SearchIssueParams['client'];
+  status: SearchIssueParams['status'];
   cursor?: string;
 }
 
@@ -130,31 +129,31 @@ export interface IssueItemProps extends IssueOnList {
 }
 
 export interface IssueDetailsQueryProps {
-  children: QueryProps["children"];
+  children: QueryProps['children'];
   repositoryOwner: string;
   repositoryName: string;
   number: number;
 }
 
-export type IssueDetailsProps = {
+export interface IssueDetailsProps {
   match: match<{ issueNumber: string }>;
   client: ApolloClient<any>;
-};
+}
 
-export type IssueDisplayProps = {
+export interface IssueDisplayProps {
   data: IssueInfoOnResponse;
   comments?: CommentOnIssue[];
-};
+}
 
-export type IssueCreationDataProps = {
-  author: IssueInfoOnResponse["author"];
-  createdAt: IssueInfoOnResponse["createdAt"];
-};
+export interface IssueCreationDataProps {
+  author: IssueInfoOnResponse['author'];
+  createdAt: IssueInfoOnResponse['createdAt'];
+}
 
-export type IssueRadioProps = {
+export interface IssueRadioProps {
   children: React.ReactNode;
   status: IssueStatus;
   selectedValue: IssueStatus;
   name: string;
   onChange: HandleIssueChange;
-};
+}

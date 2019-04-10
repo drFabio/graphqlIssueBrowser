@@ -1,15 +1,11 @@
-import {
-  CommentOnIssue,
-  ComentQueryResponse,
-  SearchCommentsOnIssueParams
-} from "../../types";
-import { listIssuesCommentsQuery as query } from "../../queries/listIssuesCommentsQuery";
+import { CommentOnIssue, ComentQueryResponse, SearchCommentsOnIssueParams } from '../../types';
+import { listIssuesCommentsQuery as query } from '../../queries/listIssuesCommentsQuery';
 
 export async function searchCommentsOnIssue({
   cursor,
   settings,
   issueNumber,
-  client
+  client,
 }: SearchCommentsOnIssueParams): Promise<[CommentOnIssue[], string | null]> {
   const { repositoryOwner, repositoryName, apiSearchLimit: limit } = settings;
   const variables = {
@@ -17,19 +13,19 @@ export async function searchCommentsOnIssue({
     repositoryOwner,
     limit,
     issueNumber,
-    cursor
+    cursor,
   };
   const {
     data: {
       repository: {
         issue: {
-          comments: { edges }
-        }
-      }
-    }
+          comments: { edges },
+        },
+      },
+    },
   }: ComentQueryResponse = await client.query({
     query,
-    variables
+    variables,
   });
   if (!edges.length) {
     return [[], null];

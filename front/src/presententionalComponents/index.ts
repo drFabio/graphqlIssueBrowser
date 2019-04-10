@@ -1,6 +1,6 @@
-import { IssueStatus } from "../types";
+import { IssueStatus } from '../types';
 
-import styled, { StyledComponent } from "styled-components";
+import styled, { StyledComponent } from 'styled-components';
 import {
   space,
   color,
@@ -11,27 +11,27 @@ import {
   SpaceProps,
   FontSizeProps,
   BorderProps,
-  ColorProps
-} from "styled-system";
-import { Link as BaseLink } from "react-router-dom";
-export { GlobalStyle } from "./GlobalStyle";
+  ColorProps,
+} from 'styled-system';
+import { Link as BaseLink } from 'react-router-dom';
+export { GlobalStyle } from './GlobalStyle';
 
 export const theme = {
   fontSizes: [12, 14, 16, 24, 32, 48, 64, 96, 128],
-  space: [0, "0.5rem", "1rem", "1.5rem", "3rem", "5rem"],
+  space: [0, '0.5rem', '1rem', '1.5rem', '3rem', '5rem'],
   colors: {
-    text: "#717173",
-    white: "#fff",
-    primary: "#E30613",
-    secondary: "#009FE3",
-    highlight: "#FFFF00",
-    error: "#ff0000",
-    black: "#000",
-    default: "inherit",
-    [IssueStatus.Closed]: "#cb2431",
-    [IssueStatus.Open]: "#2cbe4e"
+    text: '#717173',
+    white: '#fff',
+    primary: '#E30613',
+    secondary: '#009FE3',
+    highlight: '#FFFF00',
+    error: '#ff0000',
+    black: '#000',
+    default: 'inherit',
+    [IssueStatus.Closed]: '#cb2431',
+    [IssueStatus.Open]: '#2cbe4e',
   },
-  borderWidths: [1, 2, "0.5em", "1em", "1.5em"]
+  borderWidths: [1, 2, '0.5em', '1em', '1.5em'],
 };
 type SpaceColorProps = SpaceProps & ColorProps;
 type BoxProps = WidthProps & FontSizeProps & SpaceColorProps;
@@ -56,7 +56,7 @@ export const Input = styled.input<BoxProps>`
 `;
 Input.defaultProps = {
   fontSize: 2,
-  p: 1
+  p: 1,
 };
 export const BaseButton: StyledComponent<any, any> = styled.button<BoxProps>`
   ${space}
@@ -86,10 +86,10 @@ Button.defaultProps = {
   borderWidth: 1,
   pl: 1,
   pr: 1,
-  color: "white",
-  borderStyle: "solid",
-  borderColor: "primary",
-  bg: "primary"
+  color: 'white',
+  borderStyle: 'solid',
+  borderColor: 'primary',
+  bg: 'primary',
 };
 export const Menu = styled.nav``;
 
@@ -110,7 +110,7 @@ export const MainContainer = styled.main<ColorProps & FontSizeProps>`
 `;
 MainContainer.defaultProps = {
   fontSize: 3,
-  bg: "white"
+  bg: 'white',
 };
 
 export const InnerContainer = styled.div<SpaceColorProps>`
@@ -123,7 +123,7 @@ InnerContainer.defaultProps = {
   pb: 3,
   pl: 5,
   pr: 5,
-  color: "text"
+  color: 'text',
 };
 
 const getHilightProps = (props: { theme: any; highlighted: boolean }) => {
@@ -134,7 +134,7 @@ const getHilightProps = (props: { theme: any; highlighted: boolean }) => {
       color: ${props.theme.colors.black};
     `;
   }
-  return "";
+  return '';
 };
 export const Hilightable = styled.span`
   ${getHilightProps}
@@ -151,8 +151,8 @@ Header.defaultProps = {
   pb: 1,
   pl: 4,
   pr: 4,
-  bg: "secondary",
-  color: "white"
+  bg: 'secondary',
+  color: 'white',
 };
 
 export const Text = styled.span<TextProps>`
@@ -177,7 +177,7 @@ TextHeader.defaultProps = {
   pt: 2,
   pb: 2,
   mb: 3,
-  color: "primary"
+  color: 'primary',
 };
 
 export const Link = styled(BaseLink)<ColorProps & FontSizeProps>`
@@ -188,7 +188,7 @@ export const Link = styled(BaseLink)<ColorProps & FontSizeProps>`
     margin-left: ${({ theme: { space } }) => space[1]};
   }
 `;
-Link.defaultProps = { color: "default" };
+Link.defaultProps = { color: 'default' };
 
 export const Pre = styled.pre`
   white-space: pre-wrap;
@@ -206,6 +206,6 @@ export const StausBadge = styled(Text)`
 `;
 
 StausBadge.defaultProps = {
-  color: "white",
-  p: 1
+  color: 'white',
+  p: 1,
 };

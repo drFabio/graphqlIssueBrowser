@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Query } from "react-apollo";
-import { withApollo } from "react-apollo";
-import { getCommentsSearcher } from "../../utils/getCommentsSearcher";
+import React, { useState, useEffect } from 'react';
+import { Query } from 'react-apollo';
+import { withApollo } from 'react-apollo';
+import { getCommentsSearcher } from '../../utils/getCommentsSearcher';
 
-import { issueDetailsQuery as query } from "../../queries/issueDetailsQuery";
-import { settings } from "../../settings";
+import { issueDetailsQuery as query } from '../../queries/issueDetailsQuery';
+import { settings } from '../../settings';
 
-import { IssueDisplay } from "../../components/IssueDisplay";
-import { Loading } from "../../components/Loading";
+import { IssueDisplay } from '../../components/IssueDisplay';
+import { Loading } from '../../components/Loading';
 
-import {
-  IssueDetailsProps,
-  IssueDetailsResponse,
-  CommentOnIssue
-} from "../../types";
+import { IssueDetailsProps, IssueDetailsResponse, CommentOnIssue } from '../../types';
 
 function BaseIssueDetails({ match, client }: IssueDetailsProps) {
   const [issueComments, setIssueComments] = useState<CommentOnIssue[]>([]);
@@ -21,11 +17,11 @@ function BaseIssueDetails({ match, client }: IssueDetailsProps) {
   const number = parseInt(match.params.issueNumber, 10);
   const searchComments = getCommentsSearcher(client, settings);
 
-  const executeSearchComents = async () => {
+  const executeSearchComents = async (): Promise<void> => {
     const comments = await searchComments(number);
     setIssueComments(comments);
   };
-  useEffect(() => {
+  useEffect((): void => {
     executeSearchComents();
   }, []);
   const { repositoryOwner, repositoryName } = settings;
@@ -38,11 +34,9 @@ function BaseIssueDetails({ match, client }: IssueDetailsProps) {
           return <Loading />;
         }
         if (error || !data) {
-          return error || "Data not found";
+          return <>{error || 'Data not found'}</>;
         }
-        return (
-          <IssueDisplay data={data.repository.issue} comments={issueComments} />
-        );
+        return <IssueDisplay data={data.repository.issue} comments={issueComments} />;
       }}
     </Query>
   );

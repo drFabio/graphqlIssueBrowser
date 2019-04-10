@@ -1,7 +1,7 @@
-import { cursorType } from "../types";
+import { cursorType } from '../types';
 
 export async function runIterationUtilCompletion<T>(
-  iterator: IterableIterator<T[] | Promise<[T[], cursorType]>>
+  iterator: IterableIterator<T[] | Promise<[T[], cursorType]>>,
 ): Promise<T[]> {
   let { done, value } = iterator.next();
   let resp = await value;

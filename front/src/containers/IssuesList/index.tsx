@@ -1,27 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { ApolloClient } from "apollo-client";
+import React, { useState, useEffect } from 'react';
+import { ApolloClient } from 'apollo-client';
 
-import { withApollo } from "react-apollo";
+import { withApollo } from 'react-apollo';
 
-import { getIssueSearcher } from "../../utils/getIssueSearcher";
-import { settings } from "../../settings";
-import { IssueOnList, IssueStatus } from "../../types";
-import { IssueStatusSelector } from "../../components/IssueStatusSelector";
-import { Loading } from "../../components/Loading";
-import { IssueItem } from "../../components/IssueItem";
-import {
-  Button,
-  Box,
-  Input,
-  TextHeader
-} from "../../presententionalComponents";
+import { getIssueSearcher } from '../../utils/getIssueSearcher';
+import { settings } from '../../settings';
+import { IssueOnList, IssueStatus } from '../../types';
+import { IssueStatusSelector } from '../../components/IssueStatusSelector';
+import { Loading } from '../../components/Loading';
+import { IssueItem } from '../../components/IssueItem';
+import { Button, Box, Input, TextHeader } from '../../presententionalComponents';
 
 function BaseIssuesList({ client }: { client: ApolloClient<any> }) {
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [appliedSearchTerm, setAppliedSearchTerm] = useState<string | null>(
-    null
-  );
+  const [appliedSearchTerm, setAppliedSearchTerm] = useState<string | null>(null);
   const [issuesList, setIssuesList] = useState<IssueOnList[]>([]);
   const [issueStatus, setIssueStatus] = useState<IssueStatus>(IssueStatus.Both);
 
@@ -53,9 +46,7 @@ function BaseIssuesList({ client }: { client: ApolloClient<any> }) {
           mr={2}
           type="text"
           value={searchTerm}
-          onChange={({ target: { value: newSearchTerm } }) =>
-            setSearchTerm(newSearchTerm)
-          }
+          onChange={({ target: { value: newSearchTerm } }) => setSearchTerm(newSearchTerm)}
         />
         <IssueStatusSelector value={issueStatus} onChange={onStatusChange} />
         <Button onClick={onSearch} ml={1}>

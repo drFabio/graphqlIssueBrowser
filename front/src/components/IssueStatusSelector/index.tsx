@@ -1,14 +1,11 @@
-import React from "react";
-import { IssueStatus, IssueStatusSelectorProps } from "../../types";
+import React from 'react';
+import { IssueStatus, IssueStatusSelectorProps } from '../../types';
 
-export function IssueStatusSelector({
-  value,
-  onChange
-}: IssueStatusSelectorProps) {
+export function IssueStatusSelector({ value, onChange }: IssueStatusSelectorProps) {
   const commonProps = {
     selectedValue: value,
     onChange: onChange,
-    name: "issueStatus"
+    name: 'issueStatus',
   };
   return (
     <React.Fragment>
@@ -30,13 +27,13 @@ function IssueRadio({
   status,
   selectedValue,
   name,
-  onChange
+  onChange,
 }: {
   children: React.ReactNode;
   status: IssueStatus;
   selectedValue: IssueStatus;
   name: string;
-  onChange: IssueStatusSelectorProps["onChange"];
+  onChange: IssueStatusSelectorProps['onChange'];
 }) {
   return (
     <React.Fragment>

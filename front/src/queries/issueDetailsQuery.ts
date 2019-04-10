@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const issueDetailsQuery = gql`
   query($repositoryOwner: String!, $repositoryName: String!, $number: Int!) {

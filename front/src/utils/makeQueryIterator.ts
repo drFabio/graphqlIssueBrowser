@@ -1,18 +1,11 @@
-import { cursorType, WithCursor } from "../types";
+import { cursorType, WithCursor } from '../types';
 
-export type dataSearcher<T, SearchType> = (
-  params: SearchType
-) => T[] | Promise<[T[], cursorType]>;
+export type dataSearcher<T, SearchType> = (params: SearchType) => T[] | Promise<[T[], cursorType]>;
 export type responseFilter = (item: any) => boolean;
-export type completitionChecker = (
-  filteredData: any[],
-  currentData?: any[]
-) => boolean;
+export type completitionChecker = (filteredData: any[], currentData?: any[]) => boolean;
 
-export interface makeQueryIteratorParams<
-  ReturnType,
-  SearchType extends WithCursor
-> {
+// eslint-disable-next-line @typescript-eslint/class-name-casing
+export interface makeQueryIteratorParams<ReturnType, SearchType extends WithCursor> {
   searchParams: SearchType;
   executeSearch: dataSearcher<ReturnType, SearchType>;
   filterData?: responseFilter;
@@ -26,10 +19,8 @@ export function* makeQueryIterator<ItemType, SearchType extends WithCursor>({
   searchParams,
   executeSearch,
   filterData,
-  isDone
-}: makeQueryIteratorParams<ItemType, SearchType>): IterableIterator<
-  ItemType[] | Promise<[ItemType[], cursorType]>
-> {
+  isDone,
+}: makeQueryIteratorParams<ItemType, SearchType>): IterableIterator<ItemType[] | Promise<[ItemType[], cursorType]>> {
   let response: ItemType[] = [];
   let [items, cursor] = yield executeSearch(searchParams);
   if (filterData) {

@@ -1,8 +1,8 @@
-import React from "react";
-import { IssueDisplayProps } from "../../types";
-import { CreationData } from "../CreationData";
-import { CommentDisplay } from "../CommentDisplay";
-import { TextHeader } from "../../presententionalComponents";
+import React from 'react';
+import { IssueDisplayProps } from '../../types';
+import { CreationData } from '../CreationData';
+import { CommentDisplay } from '../CommentDisplay';
+import { TextHeader } from '../../presententionalComponents';
 
 export function IssueDisplay({ data, comments }: IssueDisplayProps) {
   return (
@@ -11,10 +11,7 @@ export function IssueDisplay({ data, comments }: IssueDisplayProps) {
       <CreationData author={data.author} createdAt={data.createdAt} />
       <div dangerouslySetInnerHTML={{ __html: data.bodyHTML }} />
       <TextHeader>Comments</TextHeader>
-      {comments &&
-        comments.map(comment => (
-          <CommentDisplay key={comment.id} data={comment} />
-        ))}
+      {comments && comments.map(comment => <CommentDisplay key={comment.id} data={comment} />)}
     </>
   );
 }
