@@ -24,22 +24,22 @@ async function saveComents() {
     },
   };
   let edges = null;
-  let firstIssue = true;
-  let cursor = null;
   for (const { number } of issuesData.offlineIssues) {
+    let cursor = null;
+    options.json.variables.cursor = null;
+    options.json.variables.issueNumber = parseInt(number, 10);
     const commentsFile = path.resolve(__dirname, `../src/assets/commentsFor${number}.json`);
     fs.openSync(commentsFile, 'w');
     console.log(`Should have created ${commentsFile}`);
     const commentStream = fs.createWriteStream(commentsFile);
     commentStream.write(Buffer.from('{"offlineComments":['));
     const promiseWrite = promisify(commentStream.write.bind(commentStream));
-
     console.log(`Getting comments for issue ${number}`);
     do {
-      options.json.variables.issueNumber = parseInt(number, 10);
       if (cursor) {
         options.json.variables.cursor = cursor;
       }
+      let firstComment = true;
       console.log(`Requesting with variables ${JSON.stringify(options.json.variables)}`);
       const response = await requestPromise(options);
       if (!response.body.data.repository) continue;
@@ -48,15 +48,18 @@ async function saveComents() {
         ({ cursor } = edges[edges.length - 1]);
         for (const edge of edges) {
           let data = JSON.stringify(edge.node, null, 2);
-          console.log(data);
-          if (firstIssue) {
-            firstIssue = false;
+          if (firstComment) {
+            firstComment = false;
           } else {
             data = `,${data}`;
           }
+
           await promiseWrite(Buffer.from(data));
         }
+      } else {
+        cursor = null;
       }
+      console.log('SHOULD WRITE ', edges.length, ' on ', number);
     } while (edges && edges.length);
     commentStream.write(Buffer.from(']}'));
     commentStream.end();

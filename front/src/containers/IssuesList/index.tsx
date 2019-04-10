@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ApolloClient } from 'apollo-client';
 
 import { withApollo } from 'react-apollo';
 
 import { getIssueSearcher } from '../../utils/getIssueSearcher';
 import { settings } from '../../settings';
-import { IssueOnList, IssueStatus } from '../../types';
+import { Issue, IssueStatus, IssueSearcher } from '../../types';
 import { IssueStatusSelector } from '../../components/IssueStatusSelector';
 import { Loading } from '../../components/Loading';
 import { IssueItem } from '../../components/IssueItem';
@@ -15,13 +15,22 @@ function BaseIssuesList({ client }: { client: ApolloClient<any> }) {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isLoading, setLoading] = useState<boolean>(true);
   const [appliedSearchTerm, setAppliedSearchTerm] = useState<string | null>(null);
-  const [issuesList, setIssuesList] = useState<IssueOnList[]>([]);
+  const [issuesList, setIssuesList] = useState<Issue[]>([]);
   const [issueStatus, setIssueStatus] = useState<IssueStatus>(IssueStatus.Both);
 
-  const searchIssues = getIssueSearcher(client, settings);
+  const issueSearcherRef = useRef<IssueSearcher>();
+
+  useEffect(() => {
+    issueSearcherRef.current = getIssueSearcher(client, settings);
+  }, []);
+
   const onSearch = async () => {
+    const issueSearcher = issueSearcherRef.current;
+    if (!issueSearcher) {
+      return;
+    }
     setLoading(true);
-    const issues = await searchIssues(issueStatus, searchTerm);
+    const issues = await issueSearcher(issueStatus, searchTerm);
     setAppliedSearchTerm(searchTerm);
     setIssuesList(issues);
     setLoading(false);

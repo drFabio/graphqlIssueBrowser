@@ -26,6 +26,7 @@ export async function searchCommentsOnIssue({
   }: ComentQueryResponse = await client.query({
     query,
     variables,
+    errorPolicy: 'all',
   });
   if (!edges.length) {
     return [[], null];

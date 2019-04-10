@@ -28,13 +28,14 @@ function BaseIssueDetails({ match, client }: IssueDetailsProps) {
   const variables = { repositoryName, repositoryOwner, number };
 
   return (
-    <Query {...{ variables, query }}>
+    <Query {...{ variables, query, errorPolicy: 'all' }}>
       {({ loading, data, error }: IssueDetailsResponse) => {
         if (loading) {
           return <Loading />;
         }
         if (error || !data) {
-          return <>{error || 'Data not found'}</>;
+          console.log({ error });
+          return <>{'Data not found'}</>;
         }
         return <IssueDisplay data={data.repository.issue} comments={issueComments} />;
       }}

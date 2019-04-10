@@ -11,6 +11,7 @@ export const listIssuesQuery = gql`
             number
             title
             body
+            bodyHTML
             author {
               login
             }

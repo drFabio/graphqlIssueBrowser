@@ -1,4 +1,4 @@
-import { IssueOnList, IssueQueryResponse, IssueStatus, SearchIssuesOnRepoParams } from '../../types';
+import { Issue, IssueQueryResponse, IssueStatus, SearchIssuesOnRepoParams } from '../../types';
 import { listIssuesQuery } from '../../queries/listIssuesQuery';
 
 export async function searchIssuesOnRepo({
@@ -6,7 +6,7 @@ export async function searchIssuesOnRepo({
   settings,
   status,
   cursor,
-}: SearchIssuesOnRepoParams): Promise<[IssueOnList[], string | null]> {
+}: SearchIssuesOnRepoParams): Promise<[Issue[], string | null]> {
   const { repositoryOwner, repositoryName, apiSearchLimit: limit } = settings;
   const variables: any = {
     repositoryName,
@@ -26,6 +26,7 @@ export async function searchIssuesOnRepo({
   }: IssueQueryResponse = await client.query({
     query: listIssuesQuery,
     variables,
+    errorPolicy: 'all',
   });
   if (!edges.length) {
     return [[], null];

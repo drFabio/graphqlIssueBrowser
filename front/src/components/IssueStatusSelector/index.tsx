@@ -1,5 +1,6 @@
 import React from 'react';
 import { IssueStatus, IssueStatusSelectorProps } from '../../types';
+import { IssueRadio } from './components/IssueRadio';
 
 export function IssueStatusSelector({ value, onChange }: IssueStatusSelectorProps) {
   const commonProps = {
@@ -8,7 +9,7 @@ export function IssueStatusSelector({ value, onChange }: IssueStatusSelectorProp
     name: 'issueStatus',
   };
   return (
-    <React.Fragment>
+    <>
       <IssueRadio {...commonProps} status={IssueStatus.Both}>
         All Status
       </IssueRadio>
@@ -18,34 +19,6 @@ export function IssueStatusSelector({ value, onChange }: IssueStatusSelectorProp
       <IssueRadio {...commonProps} status={IssueStatus.Closed}>
         Only Closed
       </IssueRadio>
-    </React.Fragment>
-  );
-}
-
-function IssueRadio({
-  children,
-  status,
-  selectedValue,
-  name,
-  onChange,
-}: {
-  children: React.ReactNode;
-  status: IssueStatus;
-  selectedValue: IssueStatus;
-  name: string;
-  onChange: IssueStatusSelectorProps['onChange'];
-}) {
-  return (
-    <React.Fragment>
-      <input
-        checked={selectedValue === status}
-        type="radio"
-        name={name}
-        id={status}
-        value={status}
-        onChange={() => onChange(status)}
-      />
-      <label htmlFor={status}>{children}</label>
-    </React.Fragment>
+    </>
   );
 }

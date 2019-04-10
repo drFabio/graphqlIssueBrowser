@@ -12,6 +12,7 @@ export const listIssuesCommentsQuery = gql`
                 login
               }
               bodyHTML
+              body
               createdAt
             }
             cursor

@@ -20,8 +20,9 @@ export interface Settings {
   repositoryOwner: string;
   repositoryName: string;
 }
-export interface IssueOnList {
+export interface Issue {
   title: string;
+  bodyHTML: string;
   body: string;
   closed: boolean;
   id: string;
@@ -41,7 +42,7 @@ export interface IssueQueryResponse {
   data: {
     repository: {
       issues: {
-        edges: Edge<IssueOnList>[];
+        edges: Edge<Issue>[];
         totalCount: number;
       };
     };
@@ -69,7 +70,7 @@ export interface ComentQueryResponse {
 }
 interface IssueDetailsData {
   repository: {
-    issue: IssueInfoOnResponse;
+    issue: Issue;
   };
 }
 interface IssueDetailsVariables {
@@ -88,15 +89,6 @@ interface IssueSearchData {
   };
 }
 export type IssueListSearchDataResponse = QueryResult<IssueSearchData, IssueDetailsVariables>;
-
-export interface IssueInfoOnResponse {
-  title: string;
-  bodyHTML: string;
-  createdAt: string;
-  author: {
-    login: string;
-  };
-}
 
 export interface SearchIssueParams {
   client: ApolloClient<any>;
@@ -124,7 +116,7 @@ export interface IssueStatusSelectorProps {
   onChange: HandleIssueChange;
 }
 
-export interface IssueItemProps extends IssueOnList {
+export interface IssueItemProps extends Issue {
   searchTerm?: string | null;
 }
 
@@ -141,13 +133,13 @@ export interface IssueDetailsProps {
 }
 
 export interface IssueDisplayProps {
-  data: IssueInfoOnResponse;
+  data: Issue;
   comments?: CommentOnIssue[];
 }
 
 export interface IssueCreationDataProps {
-  author: IssueInfoOnResponse['author'];
-  createdAt: IssueInfoOnResponse['createdAt'];
+  author: Issue['author'];
+  createdAt: Issue['createdAt'];
 }
 
 export interface IssueRadioProps {
@@ -157,3 +149,5 @@ export interface IssueRadioProps {
   name: string;
   onChange: HandleIssueChange;
 }
+
+export type IssueSearcher = (status?: IssueStatus, searchTerm?: string | undefined) => Promise<Issue[]>;
